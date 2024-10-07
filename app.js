@@ -43,6 +43,18 @@ const server = http.createServer((req, res) => {
             'headers': req.headers,
             'payload': buffer
         };
+
+        // Handle CORS here by adding headers
+        res.setHeader('Access-Control-Allow-Origin', '*'); // This allows all domains
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+        // Pre-flight request handling
+        if (method === 'OPTIONS') {
+            res.writeHead(204);
+            res.end();
+            return;
+        }
         
         // Route the request to the handler specified in the router
         chosenHandler(data, (statusCode, payload) => {
