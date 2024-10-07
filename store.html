@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Definition</title>
+<script>
+// This function sends a POST request to the API to create a new definition
+function submitDefinition() {
+    const word = document.getElementById('word').value;
+    const definition = document.getElementById('definition').value;
+    // Change the URL to your API endpoint
+    fetch('https://yourDomainName2.wyz/api/definitions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ word: word, definition: definition })
+    })
+    // Handle the response from the API
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('response').innerText = data.message;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+</head>
+<body>
+<h1>Create a New Definition</h1>
+<input type="text" id="word" placeholder="Enter word"><br>
+<textarea id="definition" placeholder="Enter definition"></textarea><br>
+<button onclick="submitDefinition()">Submit</button>
+<p id="response"></p>
+</body>
+</html>

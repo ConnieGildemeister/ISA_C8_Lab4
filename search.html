@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Search Definition</title>
+<script>
+// This function sends a GET request to the API to search for a definition
+function searchDefinition() {
+    // Change the URL to your API endpoint
+    const word = document.getElementById('searchWord').value;
+    // Change the URL to your API endpoint
+    fetch(`https://yourDomainName2.wyz/api/definitions?word=${word}`)
+    // Handle the response from the API
+    .then(response => response.json())
+    .then(data => {
+        if(data.definition) {
+            document.getElementById('result').innerText = word + ": " + data.definition;
+        } else {
+            document.getElementById('result').innerText = data.message;
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+</head>
+<body>
+<h1>Search for a Definition</h1>
+<input type="text" id="searchWord" placeholder="Enter word to search"><br>
+<button onclick="searchDefinition()">Search</button>
+<p id="result"></p>
+</body>
+</html>
